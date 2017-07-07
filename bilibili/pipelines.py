@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
+import time
 import MySQLdb
 from bilibili.items import Cate2Item
 from bilibili.items import CateItem
@@ -14,11 +14,23 @@ class BilibiliPipeline(object):
         self.conn = MySQLdb.connect('127.0.0.1','root','123456','bili')
         self.cur = self.conn.cursor()
     def process_item(self, item, spider):
+        play = int(item['play'] if item['play'] != '--' else 0)
         try:
+            sql = "select id from videos where title = '%s' and author = '%s'" % (item['title'],item['author'])
+            self.cur.execute(sql)
+            is_exist = int(self.cur.fetchone()[0])
+        except Exception, e:
+            is_exist = 0
+            print e
+        if is_exist != 0 :
+            sql = "update videos set play = %d,review = %d,favorites = %d where id = %d" % (play,item['review'],item['favorites'],is_exist)
+        else:
             sql = "insert into videos (b_cate_id,title,play,intro,senddate,url,pic,review,author,favorites) "
             sql = sql + " values (%d,'%s',%d,'%s','%s','%s','%s',%d,'%s',%d)"
-            sql = sql % (int(item['b_cate_id']),item['title'],int(item['play']),item['intro'],item['senddate'],item['url'],item['pic'],int(item['review']),item['author'],int(item['favorites']))
-            print sql
+            
+            sql = sql % (int(item['b_cate_id']),item['title'],play,item['intro'],item['senddate'],item['url'],item['pic'],int(item['review']),item['author'],int(item['favorites']))
+        try:
+            # print sql
             self.cur.execute(sql)
         except Exception, e:
             print e

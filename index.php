@@ -1,4 +1,5 @@
 <?php
+phpinfo();exit;
 header('Content-Type: text/html; charset=utf-8');
 error_reporting(0);
 require_once('show/page.php');
@@ -23,7 +24,7 @@ $cates = array_reduce($cates, function($v,$i){$v[$i['b_cate_id']]=$i['name'];ret
 // $cates = array_reduce($cates, create_function('$v,$w', '$v[$w["id"]]=$w["name"];return $v;'));
 $catename = $cates[$cate];
 $p_catename = get_parent_cate($all_cates,$cate);
-$nav_cate = get_nav_cate($g_cates,$p_catename);
+$nav_cate = get_nav_cate($g_cates,$p_catename,$cate);
 // var_dump($p_catename);exit;
 // var_dump($cates);
 $sql = "select * from videos where b_cate_id = {$cate} order by cast({$sort_info[0]} as DECIMAL(9,2)) desc limit {$start},{$size}";

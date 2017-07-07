@@ -60,7 +60,7 @@ function get_select_tree($cates){
 	return $html;
 }
 
-function get_nav_cate($cates,$p_catename = ''){
+function get_nav_cate($cates,$p_catename = '',$cate_id = 0){
 	$html = '<div class="btn-group" role="group" aria-label="...">';
 	foreach ($cates as $key => $value) {
 		if(!$value['_child']) continue;
@@ -69,7 +69,8 @@ function get_nav_cate($cates,$p_catename = ''){
 		if($value['_child']){
 			$h .= '<ul class="dropdown-menu">';
 			foreach ($value['_child'] as $k => $v) {
-				$h .= "<li><a href='index.php?cate={$v['b_cate_id']}'>{$v['name']}</a></li>";
+				$c_class = $cate_id == $v['b_cate_id'] ? 'c_selected' : '';
+				$h .= "<li><a class='{$c_class}' href='index.php?cate={$v['b_cate_id']}'>{$v['name']}</a></li>";
 			}
 			$h .= '</ul>';
 		}

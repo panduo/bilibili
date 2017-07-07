@@ -46,7 +46,8 @@ class TestSpider(scrapy.Spider):
     # allowed_domains = ["www.bilibili.com/"]
     conn = MySQLdb.connect('127.0.0.1','root','123456','bili')
     cur = conn.cursor()
-    cur.execute("select b_cate_id from cate where b_cate_id is not NULL")
+    # cur.execute("select b_cate_id from bili_cate where b_cate_id is not NULL")
+    cur.execute("select b_cate_id from bili_cate where b_cate_id in (145,146,147,83)")
     cates = cur.fetchall()
     now_cate_index = 0
     from_cate = cates[now_cate_index][0]

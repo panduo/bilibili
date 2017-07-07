@@ -26,6 +26,10 @@
 			color:#FEA208;
 			font-size: 16px;
 		}
+		.c_selected{
+			background: #31b0d5;
+    		color: #fff !important;
+		}
 	</style>
 </head>
 <body>
