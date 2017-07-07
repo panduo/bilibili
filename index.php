@@ -1,5 +1,5 @@
 <?php
-phpinfo();exit;
+
 header('Content-Type: text/html; charset=utf-8');
 error_reporting(0);
 require_once('show/page.php');
