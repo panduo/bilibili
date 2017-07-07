@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: myadmin.com
--- Generation Time: 2017-07-06 23:17:27
+-- Generation Time: 2017-07-07 12:23:33
 -- 服务器版本： 5.7.18
 -- PHP Version: 5.5.33
 
@@ -19,6 +19,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `bili`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bili_cate`
+--
+
+CREATE TABLE IF NOT EXISTS `bili_cate` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `level` int(11) NOT NULL DEFAULT '1',
+  `href` varchar(255) DEFAULT NULL,
+  `b_cate_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `bili_cate`
@@ -105,6 +120,27 @@ INSERT INTO `bili_cate` (`id`, `name`, `pid`, `level`, `href`, `b_cate_id`) VALU
 (79, '特摄', 70, 1, NULL, 86),
 (80, '电视剧相关', 70, 1, NULL, 128);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bili_cate`
+--
+ALTER TABLE `bili_cate`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `b_cate_id` (`b_cate_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bili_cate`
+--
+ALTER TABLE `bili_cate`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
